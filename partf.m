@@ -19,7 +19,6 @@ function xdot = partf(t, x) %numerical Solution
     onet = zeros(size(t));
     onet(t>=0 + (3)) = 1;
 
-    % since zeta = 0, use undamped equation
     x1      = onet.*((5/3)-(5/3).*cos(sqrt(3).*(t-3)));
     x2      = (1/2).*(sin(t)+(1/sqrt(3)).*sin(sqrt(3).*t)+cos(t)+cos(sqrt(3).*t));
     x3      = 2*cos(sqrt(3).*t);
