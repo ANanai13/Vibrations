@@ -1,11 +1,13 @@
 function xdot = partf(t, x) %numerical Solution
     xdot = zeros (2, 1);
     xdot(1) = x(2);
-    unitstep = zeros(size(t));
-    unitstep(t>=0 + (3)) = 5;
-    xdot(2) = unitstep+sin(t)+cos(t-2*pi)-3*x(1);
+    step = zeros(size(t));
+    step(t>=0 + (3)) = 1;
+    step2 = zeros(size(t));
+    step2(t>=0 + (2*pi)) = 1;
+    xdot(2) = -3*x(1)+step.*5+sin(t)+step2.*cos(t);
 
-%{
+
     %analytical Solution
     m=1000;       
     k=3000;      
@@ -13,21 +15,19 @@ function xdot = partf(t, x) %numerical Solution
     x0=2;        
     v0=0;    
     t=0:0.001:20;
+    F = step + sin(t) + cos(t-2*pi);
+    onet = zeros(size(t));
+    onet(t>=0 + (3)) = 1;
 
     % since zeta = 0, use undamped equation
-    omega_n = sqrt(k/m); 
-    zeta    = c/(2*m*omega_n); 
-    omega_d = omega_n*sqrt(1-zeta^2); 
-    A       = sqrt(((v0+zeta*omega_n*x0)^2+(x0*omega_d)^2)/omega_d^2); 
-    phi     = atan(x0*omega_d/(v0+zeta*omega_n*x0)); 
-    x       = A*exp(-zeta.*omega_n.*t).*sin(omega_d.*t+phi); 
+    x1      = onet.*((5/3)-(5/3).*cos(sqrt(3).*(t-3)));
+    x2      = (1/2).*(sin(t)+(1/sqrt(3)).*sin(sqrt(3).*t)+cos(t)+cos(sqrt(3).*t));
+    x3      = 2*cos(sqrt(3).*t);
+    x       = x1 + x2 + x3;
 
     plot(t,x,'b','Linewidth',2);
     hold on
     yline(0)
-    xlabel('Time (s)') 
-    ylabel('Displacement (x)') 
-%}
 
     %{
 figure
