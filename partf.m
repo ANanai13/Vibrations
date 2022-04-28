@@ -5,10 +5,11 @@ function xdot = partf(t, x) %numerical Solution
     step(t>=0 + (3)) = 1;
     step2 = zeros(size(t));
     step2(t>=0 + (2*pi)) = 1;
-    xdot(2) = -3*x(1)+step.*5+sin(t)+step2.*cos(t);
+    xdot(2) = -3*x(1)+step.*5+sin(t)+cos(t-2*pi);
 
 
     %analytical Solution
+
     m=1000;       
     k=3000;      
     c=0;       
@@ -20,9 +21,13 @@ function xdot = partf(t, x) %numerical Solution
     onet(t>=0 + (3)) = 1;
 
     x1      = onet.*((5/3)-(5/3).*cos(sqrt(3).*(t-3)));
-    x2      = (1/2).*(sin(t)+(1/sqrt(3)).*sin(sqrt(3).*t)+cos(t)+cos(sqrt(3).*t));
+    x2      = (1/2).*(sin(t)-(1/sqrt(3)).*sin(sqrt(3).*t)+cos(t)-cos(sqrt(3).*t));
     x3      = 2*cos(sqrt(3).*t);
     x       = x1 + x2 + x3;
+
+    plot(t,x,'b','Linewidth',2);
+    hold on
+    yline(0)
 
     plot(t,x,'b','Linewidth',2);
     hold on
