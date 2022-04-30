@@ -3,8 +3,6 @@ function xdot = partf(t, x) %numerical Solution
     xdot(1) = x(2);
     step = zeros(size(t));
     step(t>=0 + (3)) = 1;
-    step2 = zeros(size(t));
-    step2(t>=0 + (2*pi)) = 1;
     xdot(2) = -3*x(1)+step.*5+sin(t)+cos(t-2*pi);
 
 
@@ -25,11 +23,7 @@ function xdot = partf(t, x) %numerical Solution
     x3      = 2*cos(sqrt(3).*t);
     x       = x1 + x2 + x3;
 
-    plot(t,x,'b','Linewidth',2);
-    hold on
-    yline(0)
-
-    plot(t,x,'b','Linewidth',2);
+    plot(t,x,'b');
     hold on
     yline(0)
 
@@ -47,4 +41,3 @@ legend('displacement', 'velocity')
     %}
 
 end
-
